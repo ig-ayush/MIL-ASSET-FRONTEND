@@ -3,5 +3,9 @@ import { useAuth } from "../context/AuthContext";
 
 export default function RoleRoute({ roles }) {
   const { user } = useAuth();
-  return roles.includes(user?.role) ? <Outlet /> : <Navigate to="/unauthorized" replace />;
+  return roles.includes(user?.role) ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/unauthorized" replace />
+  );
 }

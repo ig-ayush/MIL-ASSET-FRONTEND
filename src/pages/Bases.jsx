@@ -1,4 +1,27 @@
 import CrudPage from "../components/common/CrudPage";
 import { Input, Textarea } from "../components/common/Field";
 import { getBases, createBase } from "../api/baseApi";
-export default function Bases(){return <CrudPage title="Bases" description="Manage authorized military bases and their location metadata." fetcher={()=>getBases()} creator={createBase} searchKeys={["name","location","description"]} columns={[{key:"id",label:"ID"},{key:"name",label:"Name"},{key:"location",label:"Location"},{key:"description",label:"Description"}]} form={<><Input label="Name" name="name" required/><Input label="Location" name="location" required/><Textarea label="Description" name="description"/></>}/>;}
+export default function Bases() {
+  return (
+    <CrudPage
+      title="Bases"
+      description="Manage authorized military bases and their location metadata."
+      fetcher={() => getBases()}
+      creator={createBase}
+      searchKeys={["name", "location", "description"]}
+      columns={[
+        { key: "id", label: "ID" },
+        { key: "name", label: "Name" },
+        { key: "location", label: "Location" },
+        { key: "description", label: "Description" },
+      ]}
+      form={
+        <>
+          <Input label="Name" name="name" required />
+          <Input label="Location" name="location" required />
+          <Textarea label="Description" name="description" />
+        </>
+      }
+    />
+  );
+}

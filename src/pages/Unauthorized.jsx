@@ -1,3 +1,21 @@
 import { ShieldX } from "lucide-react";
 import { Link } from "react-router-dom";
-export default function Unauthorized(){return <div className="grid min-h-[65vh] place-items-center"><div className="max-w-md text-center"><div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-red-100 text-red-600"><ShieldX size={30}/></div><h1 className="mt-5 text-2xl font-bold">Access Denied</h1><p className="mt-2 text-sm text-slate-500">You do not have permission to access this resource. The backend remains the final authorization authority.</p><Link className="btn-primary mt-6" to="/dashboard">Return to dashboard</Link></div></div>;}
+export default function Unauthorized() {
+  return (
+    <div className="grid min-h-[65vh] place-items-center">
+      <div className="max-w-md text-center">
+        <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-red-100 text-red-600">
+          <ShieldX size={30} />
+        </div>
+        <h1 className="mt-5 text-2xl font-bold">Access Denied</h1>
+        <p className="mt-2 text-sm text-slate-500">
+          You do not have permission to access this resource. The backend
+          remains the final authorization authority.
+        </p>
+        <Link className="btn-primary mt-6" to="/dashboard">
+          Return to dashboard
+        </Link>
+      </div>
+    </div>
+  );
+}
