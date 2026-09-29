@@ -1,0 +1,8 @@
+import CrudPage from "../components/common/CrudPage";
+import { Input, Textarea } from "../components/common/Field";
+import { getTransfers, createTransfer } from "../api/transferApi";
+import { date, dateTime, titleCase } from "../utils/formatters";
+export default function Transfers(){return <CrudPage title="Transfers" description="Move assets between authorized military bases." fetcher={()=>getTransfers()} creator={createTransfer} searchKeys={["sourceBaseName","destinationBaseName","equipmentTypeName","reason","status"]} columns={[
+ {key:"id",label:"ID"},{key:"sourceBaseName",label:"Source"},{key:"destinationBaseName",label:"Destination"},{key:"equipmentTypeName",label:"Equipment"},{key:"quantity",label:"Quantity"},
+ {key:"transferDate",label:"Date",render:r=>date(r.transferDate)},{key:"status",label:"Status",render:r=><span className={`badge ${r.status==="COMPLETED"?"bg-green-100 text-green-700":r.status==="CANCELLED"?"bg-red-100 text-red-700":"bg-amber-100 text-amber-700"}`}>{titleCase(r.status)}</span>},{key:"createdAt",label:"Created",render:r=>dateTime(r.createdAt)}
+]} form={<><div className="grid gap-4 sm:grid-cols-2"><Input label="Source Base ID" name="sourceBaseId" type="number" required/><Input label="Destination Base ID" name="destinationBaseId" type="number" required/></div><Input label="Equipment Type ID" name="equipmentTypeId" type="number" required/><Input label="Quantity" name="quantity" type="number" min="1" required/><Input label="Transfer Date" name="transferDate" type="date" required/><Input label="Reason" name="reason" required/><Textarea label="Notes" name="notes"/></>}/>;}
