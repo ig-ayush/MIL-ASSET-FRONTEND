@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Eye, EyeOff, Shield, LockKeyhole, ArrowRight, Server } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  Shield,
+  LockKeyhole,
+  ArrowRight,
+  Server,
+} from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
@@ -8,12 +15,145 @@ export default function Login() {
   const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [params] = useSearchParams();
-  const [email,setEmail]=useState(""); const [password,setPassword]=useState(""); const [show,setShow]=useState(false); const [loading,setLoading]=useState(false); const [error,setError]=useState("");
-  useEffect(()=>{if(isAuthenticated)navigate("/dashboard",{replace:true});},[isAuthenticated,navigate]);
-  useEffect(()=>{if(params.get("expired"))setError("Your session has expired. Please sign in again.");},[params]);
-  const submit=async(e)=>{e.preventDefault();setError("");if(!email.trim()||!password){setError("Email and password are required.");return;}setLoading(true);try{await login(email.trim(),password);toast.success("Welcome back.");navigate("/dashboard",{replace:true});}catch(e){setError(e.message);}finally{setLoading(false);}};
-  return <div className="min-h-screen bg-[#111827] lg:grid lg:grid-cols-[1.05fr_.95fr]">
-    <div className="hidden overflow-hidden bg-[#3F6212] p-12 text-white lg:flex lg:flex-col lg:justify-between"><div><div className="flex items-center gap-3"><div className="grid h-11 w-11 place-items-center rounded-xl bg-white/15"><Shield/></div><div><p className="font-bold">MIL-ASSET</p><p className="text-xs uppercase tracking-widest text-lime-100">Command Logistics</p></div></div><div className="mt-28 max-w-xl"><p className="mb-4 text-sm font-bold uppercase tracking-[.25em] text-lime-200">Secure operations</p><h1 className="text-5xl font-bold leading-tight">Control the movement of critical assets with clarity.</h1><p className="mt-6 max-w-lg text-lg leading-8 text-lime-50/85">A centralized logistics workspace for inventory, purchases, transfers, assignments and expenditure across bases.</p></div></div><div className="flex items-center gap-2 text-sm text-lime-100"><Server size={16}/> Connected to authorized command infrastructure</div></div>
-    <div className="flex items-center justify-center p-5 sm:p-8"><div className="w-full max-w-md"><div className="mb-8 flex items-center gap-3 text-white lg:hidden"><div className="grid h-11 w-11 place-items-center rounded-xl bg-[#3F6212]"><Shield/></div><div><p className="font-bold">MIL-ASSET</p><p className="text-xs uppercase tracking-widest text-slate-400">Command Logistics</p></div></div><div className="rounded-3xl bg-white p-6 shadow-2xl sm:p-8"><div className="mb-8"><div className="mb-5 grid h-12 w-12 place-items-center rounded-2xl bg-lime-100 text-[#3F6212]"><LockKeyhole/></div><h2 className="text-2xl font-bold text-slate-900">Sign in</h2><p className="mt-1 text-sm text-slate-500">Access the military asset management console.</p></div>{error&&<div className="mb-5 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>}<form onSubmit={submit} className="space-y-5"><div><label className="label">Email</label><input className="input" type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="Enter your email" autoComplete="username"/></div><div><label className="label">Password</label><div className="relative"><input className="input pr-11" type={show?"text":"password"} value={password} onChange={e=>setPassword(e.target.value)} placeholder="Enter your password" autoComplete="current-password"/><button type="button" onClick={()=>setShow(!show)} className="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg p-2 text-slate-400 hover:text-slate-700" aria-label={show?"Hide password":"Show password"}>{show?<EyeOff size={18}/>:<Eye size={18}/>}</button></div></div><button className="btn-primary w-full py-3" disabled={loading}>{loading?"Signing in...":<>Sign in <ArrowRight size={17}/></>}</button></form></div><p className="mt-5 text-center text-xs text-slate-500">Authorized personnel only. Activity is subject to audit logging.</p></div></div>
-  </div>;
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  useEffect(() => {
+    if (isAuthenticated) navigate("/dashboard", { replace: true });
+  }, [isAuthenticated, navigate]);
+  useEffect(() => {
+    if (params.get("expired"))
+      setError("Your session has expired. Please sign in again.");
+  }, [params]);
+  const submit = async (e) => {
+    e.preventDefault();
+    setError("");
+    if (!email.trim() || !password) {
+      setError("Email and password are required.");
+      return;
+    }
+    setLoading(true);
+    try {
+      await login(email.trim(), password);
+      toast.success("Welcome back.");
+      navigate("/dashboard", { replace: true });
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  return (
+    <div className="min-h-screen bg-[#111827] lg:grid lg:grid-cols-[1.05fr_.95fr]">
+      <div className="hidden overflow-hidden bg-[#3F6212] p-12 text-white lg:flex lg:flex-col lg:justify-between">
+        <div>
+          <div className="flex items-center gap-3">
+            <div className="grid h-11 w-11 place-items-center rounded-xl bg-white/15">
+              <Shield />
+            </div>
+            <div>
+              <p className="font-bold">MIL-ASSET</p>
+              <p className="text-xs uppercase tracking-widest text-lime-100">
+                Command Logistics
+              </p>
+            </div>
+          </div>
+          <div className="mt-28 max-w-xl">
+            <p className="mb-4 text-sm font-bold uppercase tracking-[.25em] text-lime-200">
+              Secure operations
+            </p>
+            <h1 className="text-5xl font-bold leading-tight">
+              Control the movement of critical assets with clarity.
+            </h1>
+            <p className="mt-6 max-w-lg text-lg leading-8 text-lime-50/85">
+              A centralized logistics workspace for inventory, purchases,
+              transfers, assignments and expenditure across bases.
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 text-sm text-lime-100">
+          <Server size={16} /> Connected to authorized command infrastructure
+        </div>
+      </div>
+      <div className="flex items-center justify-center p-5 sm:p-8">
+        <div className="w-full max-w-md">
+          <div className="mb-8 flex items-center gap-3 text-white lg:hidden">
+            <div className="grid h-11 w-11 place-items-center rounded-xl bg-[#3F6212]">
+              <Shield />
+            </div>
+            <div>
+              <p className="font-bold">MIL-ASSET</p>
+              <p className="text-xs uppercase tracking-widest text-slate-400">
+                Command Logistics
+              </p>
+            </div>
+          </div>
+          <div className="rounded-3xl bg-white p-6 shadow-2xl sm:p-8">
+            <div className="mb-8">
+              <div className="mb-5 grid h-12 w-12 place-items-center rounded-2xl bg-lime-100 text-[#3F6212]">
+                <LockKeyhole />
+              </div>
+              <h2 className="text-2xl font-bold text-slate-900">Sign in</h2>
+              <p className="mt-1 text-sm text-slate-500">
+                Access the military asset management console.
+              </p>
+            </div>
+            {error && (
+              <div className="mb-5 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
+                {error}
+              </div>
+            )}
+            <form onSubmit={submit} className="space-y-5">
+              <div>
+                <label className="label">Email</label>
+                <input
+                  className="input"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  autoComplete="username"
+                />
+              </div>
+              <div>
+                <label className="label">Password</label>
+                <div className="relative">
+                  <input
+                    className="input pr-11"
+                    type={show ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter your password"
+                    autoComplete="current-password"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShow(!show)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg p-2 text-slate-400 hover:text-slate-700"
+                    aria-label={show ? "Hide password" : "Show password"}
+                  >
+                    {show ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </div>
+              <button className="btn-primary w-full py-3" disabled={loading}>
+                {loading ? (
+                  "Signing in..."
+                ) : (
+                  <>
+                    Sign in <ArrowRight size={17} />
+                  </>
+                )}
+              </button>
+            </form>
+          </div>
+          <p className="mt-5 text-center text-xs text-slate-500">
+            Authorized personnel only. Activity is subject to audit logging.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }

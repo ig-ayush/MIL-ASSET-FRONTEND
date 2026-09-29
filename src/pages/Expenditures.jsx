@@ -2,6 +2,58 @@ import CrudPage from "../components/common/CrudPage";
 import { Input, Textarea } from "../components/common/Field";
 import { getExpenditures, createExpenditure } from "../api/expenditureApi";
 import { date, dateTime } from "../utils/formatters";
-export default function Expenditures(){return <CrudPage title="Expenditures" description="Record authorized consumption and expenditure of assets." fetcher={()=>getExpenditures()} creator={createExpenditure} searchKeys={["reason","baseName","equipmentTypeName"]} columns={[
- {key:"id",label:"ID"},{key:"baseName",label:"Base"},{key:"equipmentTypeName",label:"Equipment"},{key:"quantity",label:"Quantity"},{key:"expenditureDate",label:"Date",render:r=>date(r.expenditureDate)},{key:"reason",label:"Reason"},{key:"createdByName",label:"Created By"},{key:"createdAt",label:"Created",render:r=>dateTime(r.createdAt)}
-]} form={<><Input label="Base ID" name="baseId" type="number" required/><Input label="Equipment Type ID" name="equipmentTypeId" type="number" required/><Input label="Quantity" name="quantity" type="number" min="1" required/><Input label="Expenditure Date" name="expenditureDate" type="date" required/><Input label="Reason" name="reason" required/><Textarea label="Notes" name="notes"/></>}/>;}
+export default function Expenditures() {
+  return (
+    <CrudPage
+      title="Expenditures"
+      description="Record authorized consumption and expenditure of assets."
+      fetcher={() => getExpenditures()}
+      creator={createExpenditure}
+      searchKeys={["reason", "baseName", "equipmentTypeName"]}
+      columns={[
+        { key: "id", label: "ID" },
+        { key: "baseName", label: "Base" },
+        { key: "equipmentTypeName", label: "Equipment" },
+        { key: "quantity", label: "Quantity" },
+        {
+          key: "expenditureDate",
+          label: "Date",
+          render: (r) => date(r.expenditureDate),
+        },
+        { key: "reason", label: "Reason" },
+        { key: "createdByName", label: "Created By" },
+        {
+          key: "createdAt",
+          label: "Created",
+          render: (r) => dateTime(r.createdAt),
+        },
+      ]}
+      form={
+        <>
+          <Input label="Base ID" name="baseId" type="number" required />
+          <Input
+            label="Equipment Type ID"
+            name="equipmentTypeId"
+            type="number"
+            required
+          />
+          <Input
+            label="Quantity"
+            name="quantity"
+            type="number"
+            min="1"
+            required
+          />
+          <Input
+            label="Expenditure Date"
+            name="expenditureDate"
+            type="date"
+            required
+          />
+          <Input label="Reason" name="reason" required />
+          <Textarea label="Notes" name="notes" />
+        </>
+      }
+    />
+  );
+}
