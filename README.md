@@ -33,4 +33,11 @@ npm install
 npm run dev
 ```
 
+## 🔐 Demo Login Credentials
 
+Use the following credentials to explore the live application:
+
+- **Email:** `visitor@vis.com`
+- **Password:** `milasset@15`
+
+**Note:** This is a demo account for evaluating the application's features and role-based access. Please do not enter personal or confidential information.
